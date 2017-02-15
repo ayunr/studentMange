@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<script src="/check_logined.html"></script>
+    <title>学生管理系统</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="../dist/css/extendcss.css"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<script src="menu.js"></script>
+	<script src="../js/jquery-2.1.0.js"></script>
+	<script src="../js/jquery.tmpl.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+		
+        <div id="page-wrapper">
+           <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading row">
+                           	<div class="col-sm-6"> 当前位置: 系统管理 >用户管理</div>                           	
+                           	<div class="col-sm-6"><div class="optiondiv">
+                           		<button type="button" class="btn btn-primary btn-sm" id="btncreate">新增</button>&nbsp;
+                           		<button type="button" class="btn btn-primary btn-sm" id="btnedit">编辑</button>&nbsp;
+                           		<button type="button" class="btn btn-primary btn-sm" id="btndelete">删除</button>
+                           	</div></div>
+                        </div>
+                        <!-- /.panel-heading -->
+  						<div class="row panel-body">
+                           	<form class="form-inline" role="form">
+							  <div class="form-group">
+							   <div class="input-group">
+							      <div class="input-group-addon" id='search_department'>系别</div>
+							       <select class="form-control">
+							       		<option>全部</option>
+							       		<option>微电子系</option>
+				                        <option>图形系</option>
+				                        <option>航空系</option>
+				                        <option>通讯系</option>
+				                        <option>经管系</option>
+							        </select>
+							    </div>
+							  </div>
+							  <div class="form-group">
+							   <div class="input-group">
+							      <div class="input-group-addon" id='search_role'>用户</div>
+							       <select class="form-control">
+							            <option>学生</option>
+                       					<option>老师</option>
+							        </select>
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <div class="input-group">
+							      <div class="input-group-addon">学号：</div>
+							      <input class="form-control" type="text" id='search_username' placeholder="学号/老师号">
+							    </div>
+							  </div>
+							  <button type="submit" class="btn btn-default" id='search_btn'>查询</button>
+							</form>
+                        </div>
+                        <div class="panel-body">
+                        	
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th class="center"><input type="checkbox" id="cball"/></th>
+                                        <th>学号</th>
+                                        <th>名字</th>
+                                        <th>专业</th>
+                                        <th>系别</th>
+                                        <th>在读</th>
+                                        <th>本科</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX">
+                                    	<td class="center"><input type="checkbox" id="ckbox" /></td>
+                                        <td>1341100104</td>
+                                        <td>张三</td>
+                                        <td>3g通讯</td>
+                                        <td class="center">通讯系</td>
+                                        <td class="center"><input type="checkbox" checked="checked" disabled="disabled"/></td>
+                                    	<td>1</td>
+                                    	<td>有效</td>                               
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                    	<td class="center"><input type="checkbox" id="ckbox" /></td>
+                                        <td>1341100101</td>
+                                        <td>孙策</td>
+                                        <td>集成电路嵌入式</td>
+                                        <td class="center">微电子系</td>
+                                        <td class="center"><input type="checkbox" checked="checked" disabled="disabled"/></td>
+                                    	<td>1</td>
+                                    	<td>有效</td>                               
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                    	<td class="center"><input type="checkbox" id="ckbox" /></td>
+                                        <td>13411011001</td>
+                                        <td>张三</td>
+                                        <td>出版发行</td>
+                                        <td class="center">图形系</td>
+                                        <td class="center"><input type="checkbox" checked="checked" disabled="disabled"/></td>
+                                    	<td>1</td>
+                                    	<td>有效</td>                               
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--数据请求-->
+                            <script>
+                            		$(function(){
+                            			show_user(1);
+                            		});
+                            	</script>
+                            	<!--新增功能-->
+                            	<script>
+                            		function show_user(page){
+                            			$.get('/show_alluser.html?='+page,function(data){
+                            				var text='';
+	                            			for(var i=0;i<data.length-1;i++){
+	                            				text+='<tr class="odd gradeX" >';
+	                            				text+='<td class="center"><input type="checkbox" id="ckbox1" value="'+data[i]._id+'"></td>';
+	                            				text+='<td>'+data[i].username+'</td>';
+	                            				text+='<td>'+data[i].truename+'</td>';
+	                            				text+='<td>'+data[i].role+'</td>';
+	                            				text+='<td class="center">'+data[i].department+'</td>';
+	                            				text+='<td class="center">';
+	                            				if(data[i].flag==1){
+	                            					text+='<input type="checkbox" checked="checked" disabled="disabled"/>';
+	                            				}else{
+	                            					text+='<input type="checkbox" checked="" disabled="disabled"/>';
+	                            				}
+	                            				text+='</td>';
+	                            				text+='<td>'+data[i].sort+'</td>';
+	                            				text+='<td></td>';
+											text+='</tr>';
+	                            			}
+	                            			$('#dataTables-example tbody').html(text);
+	                            			
+	                            			//输出页码表内容；
+	                            			var pagecount = data[i].pagecount;
+	                            			var text = '';
+	                            			for(var j=0;j<pagecount;j++){
+	                            				//该页是否为当前展示页，是则加入样式。
+	                            				if(j==page){
+	                            					text+='<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">';
+	                            				}else{
+	                            					text+='<li class="paginate_button" aria-controls="dataTables-example" tabindex="0">';
+	                            				}
+	                            				text+=
+	                            				txt+='<a href="javascript:show_user('+j+')">'+j+'</a>';
+											txt+='</li>';
+	                            			}
+	                            			$('.pagination').html(text);
+                            			});
+                            		}
+                            </script>
+                            <!--删除功能-->
+                            <script>
+                            		$('#btndelete').click(function(){
+                            			var ids=[];
+                            			var ipt_cked = $('#ckbox1');
+                            			for(var i=0;i<ipt_cked.length;i++){
+                            				if(ipt_cked[i].checked){
+											ids.push(ipt_cked[i].value);
+										}
+                            			}
+                            			console.log(ids);
+                            			$.post('/del.html',{"ids":ids},function(data){
+                            				if(data==1){
+                            					show_user(1);
+                            				}
+                            			});
+                           		});
+                           		
+                           		//点击查询按钮时，展示查询数据出来；
+                           		$('#search_btn').click(function(){
+                           			var department = $('#search_department').val();
+                           			var role=$('#search_role');
+                           			var username=$('#search_username');
+                           			
+                           		})
+                            </script>
+                            <!-- /.table-responsive -->
+                             <div class="row"><div class="col-sm-6"><div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">显示第 1 至 5 项记录，共 5 项</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">上页</a></li><li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li><li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">下页</a></li></ul></div></div></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../dist/js/sea.js"></script>
+    <script>
+		$("#cball").click(function(){
+			$("input[type='checkbox']").not(this).prop("checked",$(this).prop("checked"));
+		});
+
+		seajs.config({
+		  alias: {
+		    "jquery": "jquery-1.10.2.js"
+		  }
+		});
+
+		seajs.use(['jquery', 'dialog-plus'], function ($, dialog) {
+			$('#btncreate').on('click', function () {
+				//构造表单
+				jQuery.get("userform.html",function(data){
+    				var d = dialog({
+						title: '创建用户',
+						content:data,
+						width:500,
+						okValue: '确 定',
+						ok: function () {
+							var username=$('#tbusername').val();
+							var password=$('#tbpwd').val();
+							var truename=$('#tbtruename').val();
+							var role=$('#tbrole').val();
+							var department=$('#tbdepartment').val();
+							var sort=$('#tbsort').val();
+							var flag=$('#tbflag').prop('checked') ? '1':'0';
+							//收集信息,传输
+							$.post('/add_user.html',{
+								'username':username,
+								'tbpwd':password,
+								'tbtruename':truename,
+								'role':role,
+								'department':department,
+								'tbsort':sort,
+								'tbflag':flag,
+							},function(data){
+								if(data==1){
+									show_user(1);	
+								}else{
+									console.log(data);
+								}
+							});
+						},
+						cancelValue: '取消',
+						cancel: function () {}
+					});
+		
+					d.showModal();
+    			});				
+			});
+			
+			$('#btnedit').on('click', function () {
+				//构造表单
+				jQuery.get("userform.html",function(data){
+    				var d = dialog({
+						title: '编辑用户',
+						content:data,
+						width:500,
+						okValue: '确 定',
+						ok: function () {
+							//保存新数据
+							
+							$.get('/',function(data){
+								//待完善；
+								
+								
+							})
+						},
+						
+						
+						
+						/*
+						ok: function () {
+							
+							$.post('/admin/admin_update.html',{
+								"id":id,
+								"username":username,
+								"password":password,
+								"truename":truename,
+								"role":role,
+								"department":department,
+								"sort":sort,
+								"flag":flag
+							},function(data){
+								if(data==1){
+									showadmin(1);
+								}
+							});
+						},*/
+						
+						
+						
+						
+						
+						
+						
+						cancelValue: '取消',
+						cancel: function () {}
+					});
+		
+					d.showModal();
+    			});				
+			});
+			
+		});
+</script>
+
+
+
+</body>
+
+</html>
